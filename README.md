@@ -1,33 +1,33 @@
-# Computational Methods of Data Science
+# Computational Methods for Data Science (CMDS)
 
+---
 ![R](https://img.shields.io/badge/Language-R-blue)
 ![C++](https://img.shields.io/badge/Language-C++-red)
 ![Status](https://img.shields.io/badge/Status-Active-green)
+---
 
-## Overview
-This repository contains my implementations of various algorithms for **Computational Methods of Data Science**. 
+This repository serves as an academic archive for the coursework and algorithmic implementations developed during the **Computational Methods for Data Science** course (Fall 2025). 
 
-The primary goal of this project is to **implement statistical algorithms from scratch** using R (and Rcpp where applicable), 
-without relying on built-in high-level functions. This approach focuses on understanding the underlying mathematical principles, 
-numerical linear algebra, and optimization techniques.
+The primary focus of this repository is the ground-up implementation of various statistical computing methods and metaheuristic optimization algorithms using **R** and **C++ (Rcpp)** for high-performance computing.
 
-## File structure 
-- **'R/'**: R wrapper functions and high-level logic.
-- **'src/'**: C++ source code for high-performance computing using Rcpp.
-- **'data/'**: Datasets used for testing and validation (e.g., 'CAmaxTemp.txt').
+##  Tech Stack
+* **Language:** R, C++
+* **Key Libraries:** `Rcpp` (for C++ integration and computational acceleration)
+* **Core Domains:** Markov Chain Monte Carlo (MCMC), Genetic Algorithms (GA), Particle Swarm Optimization (PSO), Simulated Annealing (SA), and Matrix Factorization (QR Decomposition).
 
-## Algorithms Implemented
-The following methods have been implemented:
+## Repository Structure
+To reflect the core pillars of data science computations, the repository is structured into the following domains:
 
-### 1. Matrix Decomposition & Dimensionality Reduction
-Located in the 'R/' directory:
-- **PCA (Principal Component Analysis):** Implementation of Eigen-decomposition and SVD-based approaches ('PCA function.R').
-- **SVD (Singular Value Decomposition):** Computation of singular values and vectors ('SVD function.R').
-- **ICA (Independent Component Analysis):** Implementation for blind source separation ('ICA function.R').
-- **QR Decomposition:** Modified Gram-Schmidt algorithm ('QR function.R').
-- **LU Decomposition:** Doolittle Method ('LU function.R').
-- **Eigenvalues:** Numerical methods for computing eigenvalues ('Eigenvalue function.R').
+### `01_Matrix_and_Decomposition/`
+Focuses on linear algebra algorithms essential for machine learning and dimensionality reduction.
+* Implementations include: Principal Component Analysis (PCA), Independent Component Analysis (ICA), Singular Value Decomposition (SVD), QR Decomposition, and Cholesky/LU Factorization.
 
-### 2. Optimization Algorithm (Work in Progress)
-- Genetic Algorithms (GA)
-- Simulated Annealing (SA)
+### `02_Statistical_Computing/`
+Focuses on probability modeling and statistical simulations.
+* Implementations include: Markov Chain Monte Carlo (MCMC), Gradient Descent, and Expectation-Maximization (EM) algorithms.
+
+### `03_Optimization_Techniques/`
+Focuses on metaheuristic algorithms for complex parameter optimization.
+* Implementations include: Genetic Algorithms (GA), Particle Swarm Optimization (PSO), Simulated Annealing (SA), and Ant Colony Optimization (ACO).
+---
+
