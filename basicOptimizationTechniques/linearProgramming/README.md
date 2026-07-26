@@ -31,9 +31,9 @@ To solve a linear programming problem computationally, real-world constraints mu
 
 The standard form of an linear programming problem is define as:
 
-Objective function: $ \min (\text{or } \max) \quad Z = \mathbf{c}^T \mathbf{x} $
+Objective function: $\min (\text{or } \max) \quad Z = \mathbf{c}^T \mathbf{x}$
 
-Subject to Constraints: $\mathbf{A}\mathbf{x} \le \mathbf{b}$ $\mathbf{x} \ge \mathbf{0}$
+Subject to Constraints: $\mathbf{A}\mathbf{x} \le \mathbf{b}$ and $\mathbf{x} \ge \mathbf{0}$
 
 Where: \* $\mathbf{x}$ is the Design Vector (decision variables). \* $\mathbf{c}$ is the cost/weight vector. \* $\mathbf{A}$ is the constraint coefficient matrix. \* $\mathbf{b}$ is the resource bound vector.
 
