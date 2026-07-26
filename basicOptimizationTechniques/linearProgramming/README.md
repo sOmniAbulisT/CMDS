@@ -1,10 +1,3 @@
----
-
-editor_options: 
-  markdown: 
-    wrap: 72
----
-
 # Linear Programming
 
 Linear programming is a foundational mathematical method used to determine the best possible outcome (such as maximum profit or lowest cost) in a given mathematical model where the requirements are represented by linear relationships. It is widely used in resource allocation, operations research, and as a building block for more complex statistical and machine learning algorithms.
