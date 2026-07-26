@@ -30,14 +30,14 @@ Objective function:
 $$ \min (\text{or } \max) \quad Z = \mathbf{c}^T \mathbf{x} $$
 
 Subject to Constraints:
-$$\mathbf{A}\mathbf{x} \le \mathbf{b}$$
-$$\mathbf{x} \ge \mathbf{0}$$
+$\mathbf{A}\mathbf{x} \le \mathbf{b}$
+$\mathbf{x} \ge \mathbf{0}$
 
 Where:
 * $\mathbf{x}$ is the Design Vector (decision variables).
 * $\mathbf{c}$ is the cost/weight vector.
 * $\mathbf{A}$ is the constraint coefficient matrix.
-* $\mathbf{b}$is the resource bound vector.
+* $\mathbf{b}$ is the resource bound vector.
 
 By introducing Slack Variables, inequality constraints are converted into equations to form the initial Simplex Tableau, 
 which is then solved iteratively using the Simplex Method.
