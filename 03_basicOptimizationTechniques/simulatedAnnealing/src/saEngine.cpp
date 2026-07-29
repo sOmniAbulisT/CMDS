@@ -21,7 +21,7 @@ List SA (NumericVector initState,
   NumericVector bestPoint = clone(initState); 
   
   // Source the functions from R
-  double currentEnergy = as<double>(objFunc(currenyPoint)); 
+  double currentEnergy = as<double>(objFunc(currentPoint)); 
   double bestEnergy = currentEnergy; 
   
   double currentTemp = initialTemp; 
@@ -58,7 +58,7 @@ List SA (NumericVector initState,
       else
       {
         double probAccept = std::exp(-deltaEnergy / currentTemp); 
-        if (R::runif(0, 1)[0] < probAccept)
+        if (R::runif(0.0, 1.0) < probAccept)
         {
           currentPoint = clone(newPoint); 
           currentEnergy = newEnergy; 
