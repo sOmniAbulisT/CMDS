@@ -1,6 +1,6 @@
 # Simulated Annealing Optimization
 
-This repository contains a high-performance implementation of the **Simulated Annealing** algorithm. Designed with a modular architecture, the core computational engine is built in **C++ (via RcppArmadillo)** for maximum speed, while data processing, execution, and visualization are handled in **R**.
+This directory contains a high-performance implementation of the **Simulated Annealing** algorithm. Designed with a modular architecture, the core computational engine is built in **C++ (via RcppArmadillo)** for maximum speed, while data processing, execution, and visualization are handled in **R**.
 
 ## Directory Overview
 Simulated Annealing is a probabilistic technique for approximating the global optimum of a given function, heavily inspired by the physical process of metallurgy. This module is capable of escaping local optima to solve complex, highly non-convex, and multi-modal optimization problems.
