@@ -18,15 +18,15 @@ The primary focus of this repository is the ground-up implementation of various 
 ## Repository Structure
 To reflect the core pillars of data science computations, the repository is structured into the following domains:
 
-### "Linear-Algebraic-Techniques/"
+### "01_linearAlgebraicTechniques/"
 Focuses on linear algebra algorithms essential for machine learning and dimensionality reduction.
 * Implementations include: Principal Component Analysis (PCA), Independent Component Analysis (ICA), Singular Value Decomposition (SVD), QR Decomposition, and Cholesky/LU Factorization.
 
-### "Statistical-Computing-Techniques/"
+### "02_statisticalComputingTechniques/"
 Focuses on probability modeling and statistical simulations.
 * Implementations include: Markov Chain Monte Carlo (MCMC), Gradient Descent, and Expectation-Maximization (EM) algorithms.
 
-### "Basic-Optimization-Techniques/"
+### "03_basicOptimizationTechniques/"
 Focuses on metaheuristic algorithms for complex parameter optimization.
 * Implementations include: Genetic Algorithms (GA), Particle Swarm Optimization (PSO), Simulated Annealing (SA), and Ant Colony Optimization (ACO).
 ---
