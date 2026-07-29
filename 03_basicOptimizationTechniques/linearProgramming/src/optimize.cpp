@@ -67,6 +67,7 @@ void executePivotStep (mat& tableau, int pivotRow, int pivotCol)
   }
 }
 
+//[[Rcpp::export]]
 List runSimplexSolver(mat tableau)
 {
   int maxIter = 1000; 
@@ -78,18 +79,18 @@ List runSimplexSolver(mat tableau)
     int pivotCol = findEnteringColumn(tableau); 
     if (pivotCol == -1)
     {
-      return List::creat(Named("status") = "Optimal", 
-                         Named("tableau") = tableau, 
-                         Named("iterations") = iter); 
+      return List::create(Named("status") = "Optimal", 
+                          Named("tableau") = tableau, 
+                          Named("iterations") = iter); 
     }
     
     // Step 2
     int pivotRow = performRatioTest(tableau, pivotCol); 
     if (pivotRow == -1)
     {
-      return List::creat(Named("status") = "Optimal", 
-                         Named("tableau") = tableau, 
-                         Named("iterations") = iter); 
+      return List::create(Named("status") = "Optimal", 
+                          Named("tableau") = tableau, 
+                          Named("iterations") = iter); 
     }
     
     // Step 3
