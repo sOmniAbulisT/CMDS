@@ -6,3 +6,8 @@
 .quarto
 .o
 .so
+
+.quarto/
+*_files/
+*.html
+*.pdf
