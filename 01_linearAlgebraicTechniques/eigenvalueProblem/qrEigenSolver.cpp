@@ -17,7 +17,7 @@ NumericMatrix matrixMultiply (NumericMatrix A, NumericMatrix B)
       double sum = 0.0;
       for (int k = 0; k < n; k++)
       {
-        sum += A(i, k) * B(K, j); 
+        sum += A(i, k) * B(k, j); 
       }
       C(i, j) = sum; 
     }
@@ -29,8 +29,8 @@ NumericMatrix matrixMultiply (NumericMatrix A, NumericMatrix B)
 NumericMatrix identityMatrix (int n)
 {
   NumericMatrix I(n, n); 
-  for (int = 0; i < n; i++) I(i, i) = 1.0; 
-  return I
+  for (int i = 0; i < n; i++) I(i, i) = 1.0; 
+  return I; 
 }
 
 /**
