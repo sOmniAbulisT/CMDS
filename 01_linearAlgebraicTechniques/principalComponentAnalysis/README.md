@@ -1,4 +1,4 @@
-#Principal Component Analysis
+# Principal Component Analysis
 A high-performance, dependency-free implementation of Principal Component Analysis (PCA) built from scratch using C++ and 
 seamlessly integrated into R via `Rcpp`.
 
@@ -6,7 +6,7 @@ This directory demonstrates the fundamental numerical linear algebra behind dime
 black-box linear algebra libraries (like LAPACK or BLAS), this engine implements a custom QR Algorithm to solve the Eigenvalue problem, 
 showcasing a deep understanding of algorithmic stability and matrix transformations.
 
-##Core Features
+## Core Features
 * Zero External Math Dependencies: Eigenvalues and eigenvectors are computed using a custom-built QR Algorithm with 
   Modified Gram-Schmidt orthogonalization.
   
@@ -17,7 +17,7 @@ showcasing a deep understanding of algorithmic stability and matrix transformati
   
 * Rcpp Integration: Combines the extreme computational speed of C++ with the statistical ecosystem of R.
 
-##Directory Structure
+## Directory Structure
 ```
 01_linearAlgebraicTechniques/
 ├── src/
@@ -26,7 +26,7 @@ showcasing a deep understanding of algorithmic stability and matrix transformati
 └── README.md
 ```
 
-##The 5-Step Algorithm Pepline
+## The 5-Step Algorithm Pepline
 The `PCA` function in `src/pca.cpp` strictly follows the standard mathematical approach for Principal Component Analysis:
 
 1. Data Centering: Computes the mean of each feature (column) and subtracts it from the respective observations.
@@ -43,15 +43,15 @@ The `PCA` function in `src/pca.cpp` strictly follows the standard mathematical a
 5. Data Recast (Projection): Projects the centered original data onto the selected principal component axes to produce the final dimension-reduced coordinates 
   (PC Scores).
   
-##Getting Started
+## Getting Started
 
-###Prerequisites
+### Prerequisites
 
 * R environment
 * C++ compiler (GCC/Clang)
 * `Rcpp` package installed in R
 
-###Execution & Testing
+### Execution & Testing
 Run the provided R script to compile the C++ source code dynamically and verify the precision against R's native `prcomp()` function.
 
 ```R
