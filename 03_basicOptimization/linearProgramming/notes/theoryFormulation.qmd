@@ -1,0 +1,90 @@
+---
+title: "Linear Programming: Mathematical Formulation"
+author: "Kun-Hong Liao"
+date: today
+format: 
+  html:
+    theme: cosmo
+    toc: true
+    toc-depth: 2
+    number-sections: true
+---
+
+## Core Concepts
+
+Linear Programming is a mathematical optimization technique. Its primary objective is to minimize or maximize a linear objective function subject to a set of constraints defined by linear equations or inequalities.
+
+A standard linear programming problem consists of three main components:
+1. **Decision Variables:** The unknown quantities to be determined, usually represented as a vector.
+2. **Objective Function:** The linear function that evaluates the quality of the decision (e.g., profit to maximize or cost to minimize).
+3. **Constraints:** The system's resource boundaries, expressed as linear equalities or inequalities.
+
+---
+
+## Standard Matrix Form
+
+To process these problems computationally on a large scale (such as using the Simplex algorithm), real-world constraints must be converted into standard matrix and vector notations.
+
+### Mathematical Definition
+
+**Objective function:**
+$$\min (\text{or } \max) \quad Z = \mathbf{c}^T \mathbf{x}$$
+
+**Subject to Constraints:**
+$$\mathbf{A}\mathbf{x} \le \mathbf{b}$$
+$$\mathbf{x} \ge \mathbf{0}$$
+
+**Where:**
+* $\mathbf{x}$ is the Design Vector containing $n$ decision variables.
+* $\mathbf{c}$ is the cost/weight vector.
+* $\mathbf{A}$ is the $m \times n$ constraint coefficient matrix.
+* $\mathbf{b}$ is the resource bound vector.
+
+---
+
+## Example: Resource Allocation Problem
+
+Let's demonstrate how to translate a real-world scenario into a mathematical formulation using a copper cable production factory.
+
+### Scenario Description
+A company produces 5mm and 10mm copper cables on a single production line:
+* The available copper allows the production of 21,000 meters of 5mm cable per week.
+* One meter of 10mm cable consumes 4 times more copper than one meter of 5mm cable.
+* Demand constraint: The weekly production of 5mm cable is limited to 15,000 meters.
+* Capacity constraint: The production of 10mm cable should not exceed 40% of the total production.
+* Revenue: $50 per meter for 5mm cable; $200 per meter for 10mm cable.
+
+**Objective: Maximize weekly revenue.**
+
+### Formulation
+
+To avoid numerical instability during computation, we first apply **scaling** by defining the unit of our decision variables as "thousands of meters".
+
+* Let $x_1$ = thousands of meters of 5mm cables produced per week.
+* Let $x_2$ = thousands of meters of 10mm cables produced per week.
+
+**Objective Function (Maximize Revenue):**
+$$\max \quad Z = 50x_1 + 200x_2$$
+
+**Subject to Constraints:**
+
+1. **Raw Material:** $x_1 + 4x_2 \le 21$
+
+2. **Production Capacity:** $x_2 \le 0.4(x_1 + x_2) \implies -4x_1 + 6x_2 \le 0$
+
+3. **Market Demand:** $x_1 \le 15$
+
+4. **Non-negativity:** $x_1, x_2 \ge 0$
+
+---
+
+## Introducing Slack Variables
+
+Before executing matrix row operations in the Simplex Method, all inequality constraints must be converted into strict equations. This is achieved by introducing non-negative **Slack Variables** ($s_1, s_2, s_3 \ge 0$):
+
+$$x_1 + 4x_2 + s_1 = 21$$
+$$-4x_1 + 6x_2 + s_2 = 0$$
+$$x_1 + s_3 = 15$$
+$$-50x_1 - 200x_2 + Z = 0$$
+
+By extracting the coefficients from the equations above, we construct the **Initial Simplex Tableau**. This matrix serves as the starting point for the algorithm to iteratively pivot and search for the optimal solution.
