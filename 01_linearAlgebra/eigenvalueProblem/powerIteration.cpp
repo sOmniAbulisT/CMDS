@@ -61,7 +61,7 @@ List PowerIteration (NumericMatrix A, int maxIter = 1000, double tol = 1e-12)
   }
   
   return List::create(
-    Named("eigenvalue") = lambdanew,
+    Named("eigenvalue") = lambdaNew,
     Named("eigenvector") = v
   );
 }
