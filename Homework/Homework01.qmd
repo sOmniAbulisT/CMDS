@@ -1,0 +1,107 @@
+---
+title: "Homework 1: Linear Algebra Technique"
+author: "Kun-Hong Liao"
+format: 
+  html:
+    theme: cosmo
+    toc: true
+    code-fold: show
+execute:
+  warning: false
+  message: false
+---
+
+## Setup and Libraries
+
+```{r}
+#| label: setup
+#| message: false
+#| warning: false
+
+library(Rcpp)
+library(scatterplot3d)
+
+sourceCpp("../01_linearAlgebra/matrixDecomposition/src/luDecomposition.cpp")
+sourceCpp("../01_linearAlgebra/matrixDecomposition/src/qrDecomposition.cpp")
+sourceCpp("../01_linearAlgebra/eigenvalueProblem/powerIteration.cpp")
+```
+
+# Data Loading and Preprocessing
+
+```{r}
+lines <- readLines("../data/CAmaxTemp.txt", warn = FALSE)
+CA <- matrix(NA_real_, nrow = 12, ncol = 12)
+for (i in seq_along(lines))
+{
+  parts <- unlist(strsplit(lines[i], "\\s+"))
+  parts <- parts[parts != ""]
+  
+  n <- length(parts)
+  
+  CA[i, ] <- as.numeric(parts[(n - 12): (n - 1)]) 
+}
+CA
+```
+
+# 1. Monthly Record-Breaking Temperature in California I: Matrix Calculation
+
+## (a) LU Factorization
+
+Run the custom-implemented LU decomposition to obtain the lower triangular matrix $L$ and upper triangular matrix $U$. 
+
+```{r}
+#| label: q1-(a)
+options(width = 200)
+resLU <- LUDecompose(CA)
+
+# The upper triangular matrix (4 digits)
+L <- resLU$L
+round(L, 4)
+
+# The lower triangular matrix (4 digits)
+U <- resLU$U
+round(U, 4)
+```
+
+## (b) QR Factorization
+
+Run the custom-implemented QR decomposition to obtain the orthogonal matrix $Q$ and upper triangular matrix $R$.
+
+```{r}
+#| label: q1-(b)
+options(width = 200)
+resQR <- QRDecompose(CA)
+
+# The orthogonal matrix (4 digits)
+Q <- resQR$Q
+round(Q, 4)
+
+# The upper triangular matrix (4 digits)
+R <- resQR$R
+round(R, 4)
+
+# The inverse of CA matrix via QR decomposition
+invQR <- QRInvert(resQR)
+round(invQR, 4)
+```
+
+## (c) Power Iteration
+
+Using the custom-implemented power iteration method to find the largest eigenvalue-eigenvector pair of CA matrix.
+
+```{r}
+#| label: q1-(c)
+options(width = 200)
+
+resPower <- PowerIteration(CA)
+
+# The largest eigenvalue
+resPower$eigenvalue
+
+# The largest eigenvector
+round(resPower$eigenvector, 4)
+```
+
+## (d) QR Algorithm
+
+
