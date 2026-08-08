@@ -2,7 +2,7 @@
 #include <cmath>
 
 using namespace Rcpp;
-#include "01_linearAlgebraicTechniques/matrixDecomposition/src/qrDecomposition.cpp"
+#include "01_linearAlgebra/matrixDecomposition/src/qrDecomposition.cpp"
 
 // matrix multiplication
 NumericMatrix matrixMultiply (NumericMatrix A, NumericMatrix B)
