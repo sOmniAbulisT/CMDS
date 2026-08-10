@@ -13,20 +13,20 @@ The primary focus of this repository is the ground-up implementation of various 
 ##  Tech Stack
 * **Language:** R, C++
 * **Key Libraries:** `Rcpp` (for C++ integration and computational acceleration)
-* **Core Domains:** Markov Chain Monte Carlo (MCMC), Genetic Algorithms (GA), Particle Swarm Optimization (PSO), Simulated Annealing (SA), and Matrix Factorization (QR Decomposition).
+* **Core Domains:** Markov Chain Monte Carlo (MCMC), Genetic Algorithms (GA), Particle Swarm Optimization (PSO), Simulated Annealing (SA), and Matrix Decomposition.
 
 ## Repository Structure
 To reflect the core pillars of data science computations, the repository is structured into the following domains:
 
-### "01_linearAlgebraicTechniques/"
+### "01_linearAlgebra/"
 Focuses on linear algebra algorithms essential for machine learning and dimensionality reduction.
 * Implementations include: Principal Component Analysis (PCA), Independent Component Analysis (ICA), Singular Value Decomposition (SVD), QR Decomposition, and Cholesky/LU Factorization.
 
-### "02_statisticalComputingTechniques/"
+### "02_statisticalComputing/"
 Focuses on probability modeling and statistical simulations.
 * Implementations include: Markov Chain Monte Carlo (MCMC), Gradient Descent, and Expectation-Maximization (EM) algorithms.
 
-### "03_basicOptimizationTechniques/"
+### "03_basicOptimization/"
 Focuses on metaheuristic algorithms for complex parameter optimization.
 * Implementations include: Genetic Algorithms (GA), Particle Swarm Optimization (PSO), Simulated Annealing (SA), and Ant Colony Optimization (ACO).
 ---
