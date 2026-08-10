@@ -24,6 +24,7 @@ library(scatterplot3d)
 sourceCpp("../01_linearAlgebra/matrixDecomposition/src/luDecomposition.cpp")
 sourceCpp("../01_linearAlgebra/matrixDecomposition/src/qrDecomposition.cpp")
 sourceCpp("../01_linearAlgebra/eigenvalueProblem/powerIteration.cpp")
+sourceCpp("../01_linearAlgebra/eigenvalueProblem/qrEigenSolver.cpp")
 ```
 
 # Data Loading and Preprocessing
@@ -104,4 +105,294 @@ round(resPower$eigenvector, 4)
 
 ## (d) QR Algorithm
 
+```{r}
+#| label: q1-(d)
+
+options(width = 200)
+
+resQREigen <- QREigenSolver(CA, maxIter = 500)
+```
+
+# 2. Monthly Record-Breaking Temperature in California II: PCA and ICA
+
+# 3. Monthly Record-Breaking Temperature in California III: ICA
+
+# 4. Determinant and Parallogram
+
+# Appendix: C++ Source Code
+
+The following sections present the core C++ source codes used in this report. To maintain a concise layout, 
+the code blocks are folded by default. Please click to expand and review the underlying computational logic. 
+
+### 1. `luDecomposition.cpp`
+
+```{Rcpp}
+//| label: cpp-lu
+//| eval: false
+//| code-fold: true
+//| code-summary: "Click to expand LU Decomposition source code"
+
+#include <Rcpp.h>
+#include <cmath>
+using namespace Rcpp; 
+
+/**
+ * LU Decomposition with Partial Pivoting (Doolittle's Method)
+ * * This function decomposes a square matrix A into P * A = L * U, where:
+ * - L is a unit lower triangular matrix (diagonal elements are 1)
+ * - U is an upper triangular matrix
+ * - P is a permutation matrix recording row swaps
+ *
+ * @param mat A square NumericMatrix (NxN)
+ * @return A List containing:
+ * - "L": The lower triangular matrix (NxN)
+ * - "U": The upper triangular matrix (NxN)
+ * - "P": The permutation matrix (NxN)
+ * - "swaps": Integer count of row swaps performance 
+ */
+
+// [[Rcpp::export]]
+List LUDecompose(NumericMatrix mat){
+  int n = mat.nrow();
+  if(mat.ncol() != n) stop("Matrix must be square"); 
+  
+  NumericMatrix A = clone(mat); 
+  
+  //Initial permutation matrix
+  NumericMatrix P_mat(n, n); 
+  for(int i = 0; i < n; i++){
+    P_mat(i, i)=1;
+  }
+  int swaps = 0; 
+  for(int i = 0; i < n; i++){
+    
+    // pivoting
+    double maxVal = 0.0;
+    int imax = i; 
+    
+    for(int k = i; k < n; k++){
+      if(std::abs(A(k, i)) > maxVal){
+        maxVal = std::abs(A(k, i)); 
+        imax = k; 
+      }
+    }
+    
+    if(maxVal < 1e-12) stop("Matrix is singular"); 
+    
+    // row swapping
+    if(imax != i){
+      swaps++; 
+      for(int col = 0; col < n; col++){
+        double temp = A(i, col); 
+        A(i, col) = A(imax, col); 
+        A(imax, col) = temp; 
+      }
+      
+      for(int col = 0; col < n; col++){
+        double temp = P_mat(i, col); 
+        P_mat(i, col) = P_mat(imax, col);
+        P_mat(imax, col) = temp; 
+      }
+    }
+    
+    // Doolittle Method
+    for(int j = i + 1; j < n; j++){
+      // L matrix
+      A(j, i) /= A(i, i); 
+      
+      for(int k = i + 1; k < n; k++){
+        // U matrix
+        A(j, k) -= A(j, i)*A(i, k);
+      }
+    }
+  }
+  
+  NumericMatrix L(n, n); 
+  NumericMatrix U(n, n); 
+  
+  for(int i = 0; i < n; i++){
+    for(int j = 0; j < n; j++){
+      if(i > j){
+        // lower triangular
+        L(i, j) = A(i, j); 
+        U(i, j) = 0; 
+      } else if(i == j) {
+        // diagonal
+        L(i, j) = 1; 
+        U(i, j) = A(i, j); 
+      } else {
+        // upper triangular
+        L(i, j) = 0; 
+        U(i, j) = A(i, j); 
+      }
+    }
+  }
+  
+  return List::create(
+    Named("L") = L, 
+    Named("U") = U, 
+    Named("P") = P_mat, 
+    Named("swaps") = swaps
+  ); 
+}
+```
+
+### 2. `QRDecompose.cpp`
+
+```{Rcpp}
+//| label: cpp-qr
+//| eval: false
+//| code-fold: true
+//| code-summary: "Click to expand QR Decomposition and inverse source code"
+
+#include <Rcpp.h>
+#include <cmath>
+using namespace Rcpp;
+
+/**
+ * QR decomposition using Modified Gram-Schmidt
+ */
+// [[Rcpp::export]]
+List QRDecompose(NumericMatrix mat){
+  int m = mat.nrow(); // rows
+  int n = mat.ncol(); // cols
+  
+  NumericMatrix Q = clone(mat); 
+  NumericMatrix R(n, n); 
+  
+  for(int k = 0; k < n; k++){
+    double norm_sq = 0.0; 
+    for(int i = 0; i < m; i++){
+      norm_sq += Q(i, k)*Q(i, k); 
+    }
+    R(k, k) = std::sqrt(norm_sq); 
+    
+    for(int i = 0; i < m; i++){
+      Q(i, k) /= R(k, k); 
+    }
+    
+    for(int j = k + 1; j < n; j++){
+      double dot = 0.0; 
+      for(int i = 0; i < m; i++){
+        dot += Q(i, k)*Q(i, j); 
+      }
+      R(k, j) = dot; 
+      
+      for(int i = 0; i < m; i++){
+        Q(i, j) -= R(k, j) * Q(i, k);
+      }
+    }
+  }
+  
+  return List::create(
+    Named("Q") = Q, 
+    Named("R") = R
+  ); 
+}
+
+/**
+ * Calculate the Inverse Matrix using QR Decomposition
+ * 
+ */
+// [[Rcpp::export]]
+NumericMatrix QRInvert(List qr_result){
+  NumericMatrix Q = qr_result["Q"]; 
+  NumericMatrix R = qr_result["R"];
+  
+  int m = Q.nrow(); //row
+  int n = Q.ncol();
+  if(m != n) stop("Matrix must be square. ");
+  
+  NumericMatrix IA(n, n); 
+  
+  for(int j = 0; j < n; j++){
+    NumericVector y(n);
+    for(int i = 0; i < n; i++){
+      y[i] = Q(j, i);
+    }
+    
+    for(int i = n - 1; i >= 0; i--){
+      double sum = 0.0; 
+      for(int k = i + 1; k < n; k++){
+        sum += R(i, k)*IA(k, j); 
+      }
+      IA(i, j) = (y[i] - sum) / R(i, i); 
+    }
+  }
+  
+  return IA; 
+}
+```
+
+### 3. `powerIteration.cpp`
+
+```{Rcpp}
+#include <Rcpp.h>
+#include <cmath>
+using namespace Rcpp;
+
+//[[Rcpp::export]]
+List PowerIteration (NumericMatrix A, int maxIter = 1000, double tol = 1e-12)
+{
+  int n = A.nrow();
+  if (n != A.ncol()) stop("Matrix must be square");
+  
+  NumericVector v(n); 
+  
+  // Initialization
+  for (int i = 0; i < n; i++)
+  {
+    v[i] = R::rnorm(0.0, 1.0); 
+  }
+  
+  // L2 normalization
+  double norm = 0.0; 
+  for(int i = 0; i < n; i++) norm += v[i] * v[i];
+  norm = std::sqrt(norm);
+  for(int i = 0; i < n; i++) v[i] /= norm;
+  
+  double lambdaOld = 0.0; 
+  double lambdaNew = 0.0; 
+  
+  // Main Loop
+  for (int k = 0; k < maxIter; k++)
+  {
+    NumericVector w(n); 
+    
+    // matrix multiplier
+    for (int i = 0; i < n; i++)
+    {
+      double sum = 0.0; 
+      for (int j = 0; j < n; j++)
+      {
+        sum += A(i, j) * v[j]; 
+      }
+      w[i] = sum; 
+    }
+    
+    // Rayleigh Quotient
+    lambdaNew = 0.0; 
+    for (int i = 0; i < n; i++)
+    {
+      lambdaNew += v[i] * w[i]; 
+    }
+    
+    if (std::abs(lambdaNew - lambdaOld) < tol) 
+    {
+      break;
+    }
+    lambdaOld = lambdaNew;
+    
+    norm = 0.0;
+    for(int i = 0; i < n; i++) norm += w[i] * w[i];
+    norm = std::sqrt(norm);
+    for(int i = 0; i < n; i++) v[i] = w[i] / norm;
+  }
+  
+  return List::create(
+    Named("eigenvalue") = lambdaNew,
+    Named("eigenvector") = v
+  );
+}
+```
 
