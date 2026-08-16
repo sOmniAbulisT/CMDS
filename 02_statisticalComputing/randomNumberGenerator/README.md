@@ -1,4 +1,4 @@
-# Statistical Computing: Universal Random Variable Generator
+# Universal Random Variable Generator
 
 ## Overview
 This repository contains a foundational statistical computing project focused on **Stochastic Simulation and Sampling Methods**. It features a custom-built, universal R function (`GenerateRV`) that generates random variables from scratch without relying on high-level, built-in distribution functions. 
